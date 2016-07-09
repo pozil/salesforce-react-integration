@@ -1,0 +1,48 @@
+{
+  "name": "salesforce-react-integration",
+  "version": "1.0.0",
+  "author": "Philippe Ozil",
+  "description": "Sample integration project between Salesforce and a React application",
+  "license": "see LICENSE file",
+  "private": true,
+  "main": "server/server.js",
+  "dependencies": {
+    "salesforce-node-client": "^1.0.0",
+
+    "body-parser": "^1.4.3",
+    "express": "^4.4.5",
+    "express-session": "^1.13.0",
+    "underscore": "~1.8.3",
+    "request": "~2.72.0",
+
+    "@salesforce-ux/design-system": "^2.0.2",
+    "babel-preset-react": "^6.11.1",
+    "babelify": "^7.3.0",
+    "jquery": "^3.0.0",
+    "react": "^15.2.0",
+    "react-dom": "^15.2.0",
+    "uglify-js": "^2.7.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build:assets && npm run build:scripts",
+    "build:assets": "npm install && cp -r node_modules/@salesforce-ux/design-system/assets public/",
+    "build:scripts": "mkdir -p public/scripts && browserify -t [ babelify --presets [ react ] ] client-src/scripts/*.js | uglifyjs > public/scripts/bundle.min.js",
+    "start": "node server/server.js"
+  },
+  "keywords": [
+    "React",
+    "Salesforce",
+    "Force.com",
+    "Lightning",
+    "SLDS"
+  ],
+  "repository": "pozil/salesforce-react-integration",
+  "bugs": {
+    "url": "https://github.com/pozil/salesforce-react-integration/issues"
+  },
+  "homepage": "https://github.com/pozil/salesforce-react-integration",
+  "engines": {
+    "node": "6.2.x"
+  }
+}
