@@ -10,6 +10,6 @@ This application demonstrates the following concepts:
 
 ## Screenshots
 <div style="text-align:center;">
-	<img src="/screenshots/login.png?raw=true" width="50%" alt="Login screen"/>
-	<img src="/screenshots/main.png?raw=true" width="50%" alt="Main screen"/>
+	<img src="/screenshots/login.png?raw=true" width="45%" alt="Login screen"/>
+	<img src="/screenshots/main.png?raw=true" width="45%" alt="Main screen"/>
 </div>
