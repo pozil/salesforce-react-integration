@@ -16,6 +16,7 @@
     "request": "~2.72.0",
 
     "@salesforce-ux/design-system": "^2.0.2",
+    "browserify": "^3.10.4",
     "babel-preset-react": "^6.11.1",
     "babelify": "^7.3.0",
     "jquery": "^3.0.0",
