@@ -13,6 +13,8 @@ if (process.env.sfdcAuthConsumerKey)
   config.sfdc.auth.consumerKey = process.env.sfdcAuthConsumerKey;
 if (process.env.sfdcAuthSecretKey)
   config.sfdc.auth.secretKey = process.env.sfdcAuthSecretKey;
+if (process.env.sfdcAuthCallbackUrl)
+  config.sfdc.auth.callbackUrl = process.env.sfdcAuthCallbackUrl;
 var sfdc = new SalesforceClient(config.sfdc);
 
 
