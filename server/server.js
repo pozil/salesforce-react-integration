@@ -9,10 +9,10 @@ var httpClient = require("request"),
 var config = require('./config');
 
 // Configure Salesforce client while allowing command line overrides
-if (process.env.sfdc.auth.consumerKey)
-  config.sfdc.auth.consumerKey = process.env.sfdc.auth.consumerKey;
-if (process.env.sfdc.auth.secretKey)
-  config.sfdc.auth.secretKey = process.env.sfdc.auth.secretKey;
+if (process.env.sfdcAuthConsumerKey)
+  config.sfdc.auth.consumerKey = process.env.sfdcAuthConsumerKey;
+if (process.env.sfdcAuthSecretKey)
+  config.sfdc.auth.secretKey = process.env.sfdcAuthSecretKey;
 var sfdc = new SalesforceClient(config.sfdc);
 
 
