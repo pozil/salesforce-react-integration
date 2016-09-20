@@ -14,7 +14,8 @@ var sfdc = new SalesforceClient(config.sfdc);
 
 // Setup HTTP server
 var app = express();
-app.set('port', config.server.port);
+var port = process.env.PORT || 8080;
+app.set('port', port);
 
 // Enable server-side sessions
 app.use(session({
