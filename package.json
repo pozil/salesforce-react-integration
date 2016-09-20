@@ -28,7 +28,8 @@
     "build": "npm run build:assets && npm run build:scripts",
     "build:assets": "npm install && cp -r node_modules/@salesforce-ux/design-system/assets public/",
     "build:scripts": "mkdir -p public/scripts && browserify -t [ babelify --presets [ react ] ] client-src/scripts/*.js | uglifyjs > public/scripts/bundle.min.js",
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "build-n-start": "npm run build && npm run start"
   },
   "keywords": [
     "React",
