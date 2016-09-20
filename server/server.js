@@ -8,7 +8,11 @@ var httpClient = require("request"),
 // App dependencies
 var config = require('./config');
 
-// Configure Salesforce client
+// Configure Salesforce client while allowing command line overrides
+if (process.env.sfdc.auth.consumerKey)
+  config.sfdc.auth.consumerKey = process.env.sfdc.auth.consumerKey;
+if (process.env.sfdc.auth.secretKey)
+  config.sfdc.auth.secretKey = process.env.sfdc.auth.secretKey;
 var sfdc = new SalesforceClient(config.sfdc);
 
 
