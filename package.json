@@ -45,6 +45,6 @@
   },
   "homepage": "https://github.com/pozil/salesforce-react-integration",
   "engines": {
-    "node": "6.2.x"
+    "node": "6.11.x"
   }
 }
