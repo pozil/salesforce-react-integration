@@ -18,8 +18,8 @@ config.sfdc = {
     // Set of secret keys that allow your app to authenticate with Force.com
     // These values are retrieved from your App configuration in SFDC setup.
     // NEVER share them with a client.
-    consumerKey : '3MVG98_Psg5cppyYCmk1gZNC25rnJmZh5Af1cgCnjvHxCXsR21KVSv5IMIMJ_qmtm56KBLQkntNBJ3rR.FXNq',
-    consumerSecret : '3117368582173745906',
+    consumerKey : '',
+    consumerSecret : '',
   },
   // Data service
   data : {
