@@ -1,32 +1,25 @@
+// Load .env configuration file
+require('dotenv').config();
+
 // 3rd party dependencies
-var httpClient = require("request"),
+const httpClient = require("request"),
   path = require('path'),
   express = require('express'),
   session = require('express-session'),
   SalesforceClient = require('salesforce-node-client');
 
-// App dependencies
-var config = require('./config');
-
-// Configure Salesforce client while allowing command line overrides
-if (process.env.sfdcAuthConsumerKey)
-  config.sfdc.auth.consumerKey = process.env.sfdcAuthConsumerKey;
-if (process.env.sfdcAuthConsumerSecret)
-  config.sfdc.auth.consumerSecret = process.env.sfdcAuthConsumerSecret;
-if (process.env.sfdcAuthCallbackUrl)
-  config.sfdc.auth.callbackUrl = process.env.sfdcAuthCallbackUrl;
-var sfdc = new SalesforceClient(config.sfdc);
-
+// Instantiate Salesforce client with .env configuration
+const sfdc = new SalesforceClient();
 
 // Setup HTTP server
-var app = express();
-var port = process.env.PORT || 8080;
+const app = express();
+const port = process.env.PORT || 8080;
 app.set('port', port);
 
 // Enable server-side sessions
 app.use(session({
-  secret: config.server.sessionSecretKey,
-  cookie: { secure: config.server.isHttps },
+  secret: process.env.sessionSecretKey,
+  cookie: { secure: process.env.isHttps === 'true' },
   resave: false,
   saveUninitialized: false
 }));
@@ -40,8 +33,8 @@ app.use('/', express.static(path.join(__dirname, '../public')));
 *  If there is no session, redirects with HTTP 401 and an error message
 */
 function getSession(request, response) {
-  var session = request.session;
-  if (!session.sfdcAuth) {
+  const session = request.session;
+  if (typeof session['sfdcAuth'] === 'undefined') {
     response.status(401).send('No active session');
     return null;
   }
@@ -54,7 +47,7 @@ function getSession(request, response) {
 */
 app.get("/auth/login", function(request, response) {
   // Redirect to Salesforce login/authorization page
-  var uri = sfdc.auth.getAuthorizationUrl({scope: 'api'});
+  const uri = sfdc.auth.getAuthorizationUrl({scope: 'api'});
   return response.redirect(uri);
 });
 
@@ -77,14 +70,11 @@ app.get('/auth/callback', function(request, response) {
           response.status(500).json(error);
           return;
         }
-        else {
-          // Store oauth session data in server (never expose it directly to client)
-          var session = request.session;
-          session.sfdcAuth = payload;
 
-          // Redirect to app main page
-          return response.redirect('/index.html');
-        }
+		// Store oauth session data in server (never expose it directly to client)
+		request.session.sfdcAuth = payload;
+		// Redirect to app main page
+		return response.redirect('/index.html');
     });
 });
 
@@ -93,7 +83,7 @@ app.get('/auth/callback', function(request, response) {
 * Logout endpoint
 */
 app.get('/auth/logout', function(request, response) {
-  var session = getSession(request, response);
+  const session = getSession(request, response);
   if (session == null)
     return;
 
@@ -121,7 +111,7 @@ app.get('/auth/logout', function(request, response) {
 * Endpoint for retrieving currently connected user
 */
 app.get('/auth/whoami', function(request, response) {
-  var session = getSession(request, response);
+  const session = getSession(request, response);
   if (session == null)
     return;
 
@@ -143,7 +133,7 @@ app.get('/auth/whoami', function(request, response) {
 * Endpoint for performing a SOQL query on Force.com
 */
 app.get('/query', function(request, response) {
-  var session = getSession(request, response);
+  const session = getSession(request, response);
   if (session == null)
     return;
 
@@ -152,8 +142,8 @@ app.get('/query', function(request, response) {
     return;
   }
 
-  var query = encodeURI(request.query.q);
-  var apiRequestOptions = sfdc.data.createDataRequest(session.sfdcAuth, 'query?q='+ query);
+  const query = encodeURI(request.query.q);
+  const apiRequestOptions = sfdc.data.createDataRequest(session.sfdcAuth, 'query?q='+ query);
 
   httpClient.get(apiRequestOptions, function (error, payload) {
     if (error) {
