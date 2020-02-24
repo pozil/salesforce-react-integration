@@ -1,5 +1,4 @@
-var $ = require('jquery'),
-  React = require('react');
+var React = require('react');
 
 var NavBar = require('./NavBarComponent.js'),
   LoginPanel = require('./LoginPanelComponent.js'),
@@ -13,34 +12,43 @@ var App = module.exports = React.createClass({
   },
 
   componentDidMount: function() {
-    // Get logged in user
-    $.ajax({
-      url: '/auth/whoami',
-      dataType: 'json',
-      success: function(data) {
-        this.setState({user: data});
-      }.bind(this),
-      error: function(xhr, status, err) {
-        if (xhr.status != 401) // Ignore 'unauthorized' responses before logging in
-          console.error('Failed to retrieve logged user.');
-      }.bind(this)
-    });
+	const that = this;
+	// Get logged in user
+	fetch('/auth/whoami', {
+        method: 'get',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then(function(response) {
+		if (response.ok) {
+			response.json().then(function(json) {
+				that.setState({user: json});
+			});
+		} else if (response.status !== 401) { // Ignore 'unauthorized' responses before logging in
+			console.error('Failed to retrieve logged user.', JSON.stringify(response));
+		}
+	});
   },
 
   handleQueryExecution: function(data) {
-    // Send SOQL query to server
-    $.ajax({
-      url: '/query',
-      dataType: 'json',
-      cache: false,
-      data: {q: data.query},
-      success: function(data) {
-        this.setState({result: JSON.stringify(data, null, 2)});
-      }.bind(this),
-      error: function(xhr, status, err) {
-        this.setState({result: 'Failed to retrieve query result.'});
-      }.bind(this)
-    });
+	const that = this;
+	// Send SOQL query to server
+	const queryUrl = '/query?q='+ encodeURI(data.query);
+	fetch(queryUrl, {
+        headers: {
+            Accept: 'application/json'
+		},
+		cache: 'no-store'
+    }).then(function(response) {
+		response.json().then(function(json) {
+			if (response.ok) {
+				that.setState({result: JSON.stringify(json, null, 2)});
+			} else {
+				that.setState({result: 'Failed to retrieve query result.'});
+			}
+		});
+	});
   },
 
   render: function() {
