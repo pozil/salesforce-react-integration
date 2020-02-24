@@ -7,22 +7,20 @@
   "private": true,
   "main": "server/server.js",
   "dependencies": {
-    "@salesforce-ux/design-system": "^2.0.2",
-    "body-parser": "^1.4.3",
-    "browserify": "^3.10.4",
-    "dotenv": "^5.0.0",
-    "express": "^4.4.5",
-    "express-session": "^1.13.0",
-    "jquery": "^3.0.0",
+    "@salesforce-ux/design-system": "^2.11.4",
+    "body-parser": "^1.19.0",
+    "browserify": "^16.5.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "jsforce": "^1.9.3",
     "react": "^15.2.0",
     "react-dom": "^15.2.0",
-    "request": "~2.72.0",
-    "salesforce-node-client": "1.2.0",
-    "underscore": "~1.8.3"
+    "underscore": "^1.9.2"
   },
   "devDependencies": {
     "babelify": "^7.3.0",
-    "babel-preset-react": "^6.11.1",
+    "babel-preset-react": "^6.24.1",
     "uglify-js": "^2.7.0"
   },
   "scripts": {
@@ -45,6 +43,6 @@
     "url": "https://github.com/pozil/salesforce-react-integration"
   },
   "engines": {
-    "node": "8.9.x"
+    "node": ">= 10.13.0"
   }
 }
