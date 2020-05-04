@@ -7,16 +7,16 @@
   "private": true,
   "main": "server/server.js",
   "dependencies": {
-    "@salesforce-ux/design-system": "^2.11.4",
+    "@salesforce-ux/design-system": "^2.11.9",
     "body-parser": "^1.19.0",
-    "browserify": "^16.5.0",
+    "browserify": "^16.5.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-session": "^1.17.0",
+    "express-session": "^1.17.1",
     "jsforce": "^1.9.3",
     "react": "^15.2.0",
     "react-dom": "^15.2.0",
-    "underscore": "^1.9.2"
+    "underscore": "^1.10.2"
   },
   "devDependencies": {
     "babelify": "^7.3.0",
