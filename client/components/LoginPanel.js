@@ -1,10 +1,11 @@
-var React = require('react');
+import React from 'react';
 
-var LoginPanel = module.exports = React.createClass({
-  login: function() {
+export default class LoginPanel extends React.Component {
+  login() {
     window.location = '/auth/login';
-  },
-  render: function() {
+  }
+
+  render() {
     return (
       <div className="slds-modal slds-fade-in-open">
         <div className="slds-modal__container">
@@ -23,4 +24,4 @@ var LoginPanel = module.exports = React.createClass({
       </div>
     );
   }
-});
+}

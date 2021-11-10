@@ -1,8 +1,7 @@
-var React = require('react');
+import React from 'react';
 
-
-var QueryResults = module.exports = React.createClass({
-  render: function() {
+export default class QueryResults extends React.Component {
+  render() {
     return (
       <div>
         <p className="slds-form-element__label  slds-text-heading--medium">Results</p>
@@ -12,4 +11,4 @@ var QueryResults = module.exports = React.createClass({
       </div>
     );
   }
-});
+}
