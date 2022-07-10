@@ -52,6 +52,7 @@ function getSession(request, response) {
 
 function resumeSalesforceConnection(session) {
   return new jsforce.Connection({
+    oauth2: oauth2,
     instanceUrl: session.sfdcAuth.instanceUrl,
     accessToken: session.sfdcAuth.accessToken,
     version: process.env.apiVersion
