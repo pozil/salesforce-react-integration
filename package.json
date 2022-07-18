@@ -1,6 +1,6 @@
 {
   "name": "salesforce-react-integration",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "author": "Philippe Ozil",
   "description": "Sample integration project between Salesforce and a React application",
   "license": "see LICENSE file",
