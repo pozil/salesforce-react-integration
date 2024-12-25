@@ -70,7 +70,7 @@ app.get('/auth/login', (request, response) => {
 /**
  * Login callback endpoint (only called by Salesforce)
  */
-app.get('/auth/callback', (request, response) => {
+app.get('/auth/callback', async (request, response) => {
   if (!request.query.code) {
     response.status(500).send('Failed to get authorization code from server callback.');
     return;
@@ -81,13 +81,8 @@ app.get('/auth/callback', (request, response) => {
     oauth2: oauth2,
     version: process.env.apiVersion
   });
-  conn.authorize(request.query.code, (error, userInfo) => {
-    if (error) {
-      console.log('Salesforce authorization error: ' + JSON.stringify(error));
-      response.status(500).json(error);
-      return;
-    }
-
+  try {
+    await conn.authorize(request.query.code);
     // Store oauth session data in server (never expose it directly to client)
     request.session.sfdcAuth = {
       instanceUrl: conn.instanceUrl,
@@ -95,41 +90,43 @@ app.get('/auth/callback', (request, response) => {
     };
     // Redirect to app main page
     return response.redirect('/index.html');
-  });
+  } catch (error) {
+    console.log('Salesforce authorization error: ' + JSON.stringify(error));
+    response.status(500).json(error);
+    return;
+  }
 });
 
 /**
  * Logout endpoint
  */
-app.get('/auth/logout', (request, response) => {
+app.get('/auth/logout', async (request, response) => {
   const session = getSession(request, response);
   if (session == null) return;
 
   // Revoke OAuth token
   const conn = resumeSalesforceConnection(session);
-  conn.logout((error) => {
-    if (error) {
-      console.error('Salesforce OAuth revoke error: ' + JSON.stringify(error));
-      response.status(500).json(error);
-      return;
-    }
-
+  try {
+    await conn.logout();
     // Destroy server-side session
     session.destroy((error) => {
       if (error) {
         console.error('Salesforce session destruction error: ' + JSON.stringify(error));
       }
     });
-
     // Redirect to app main page
     return response.redirect('/index.html');
-  });
+  } catch (error) {
+    console.error('Salesforce OAuth revoke error: ' + JSON.stringify(error));
+    response.status(500).json(error);
+    return;
+  }
 });
 
 /**
  * Endpoint for retrieving currently connected user
  */
-app.get('/auth/whoami', (request, response) => {
+app.get('/auth/whoami', async (request, response) => {
   const session = getSession(request, response);
   if (session == null) {
     return;
@@ -137,15 +134,20 @@ app.get('/auth/whoami', (request, response) => {
 
   // Request session info from Salesforce
   const conn = resumeSalesforceConnection(session);
-  conn.identity((error, res) => {
-    response.send(res);
-  });
+  try {
+    const identity = await conn.identity();
+    response.send(identity);
+  } catch (error) {
+    console.error('Salesforce identity error: ' + JSON.stringify(error));
+    response.status(500).json(error);
+    return;
+  }
 });
 
 /**
  * Endpoint for performing a SOQL query on Salesforce
  */
-app.get('/query', (request, response) => {
+app.get('/query', async (request, response) => {
   const session = getSession(request, response);
   if (session == null) {
     return;
@@ -158,16 +160,14 @@ app.get('/query', (request, response) => {
   }
 
   const conn = resumeSalesforceConnection(session);
-  conn.query(query, (error, result) => {
-    if (error) {
-      console.error('Salesforce data API error: ' + JSON.stringify(error));
-      response.status(500).json(error);
-      return;
-    } else {
-      response.send(result);
-      return;
-    }
-  });
+  try {
+    const result = await conn.query(query);
+    response.send(result);
+  } catch (error) {
+    console.error('Salesforce query error: ' + JSON.stringify(error));
+    response.status(500).json(error);
+    return;
+  }
 });
 
 app.listen(app.get('port'), () => {

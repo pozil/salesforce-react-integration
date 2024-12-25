@@ -1,28 +1,28 @@
 {
   "name": "salesforce-react-integration",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "author": "Philippe Ozil",
   "description": "Sample integration project between Salesforce and a React application",
   "license": "see LICENSE file",
   "private": true,
   "main": "server/server.js",
   "dependencies": {
-    "@salesforce-ux/design-system": "^2.18.1",
-    "browserify": "^17.0.0",
-    "dotenv": "^16.0.1",
-    "express": "^4.18.1",
-    "express-session": "^1.17.3",
-    "jsforce": "^1.11.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@salesforce-ux/design-system": "^2.25.6",
+    "browserify": "^17.0.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "jsforce": "^3.6.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.6",
-    "@babel/preset-env": "^7.18.6",
-    "@babel/preset-react": "^7.18.6",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
     "babelify": "^10.0.0",
-    "prettier": "^2.7.1",
-    "uglify-js": "^3.16.2"
+    "prettier": "^3.4.2",
+    "uglify-js": "^3.19.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -44,6 +44,6 @@
     "url": "https://github.com/pozil/salesforce-react-integration"
   },
   "engines": {
-    "node": ">= 14.17.0"
+    "node": ">= 22.0.0"
   }
 }
