@@ -29,7 +29,7 @@ If you are building a React app with LDS, consider using the [React LDS base com
    callbackUrl='http://localhost:8080/auth/callback'
    consumerKey='YOUR_CLIENT_KEY'
    consumerSecret='YOUR_CLIENT_SECRET'
-   apiVersion='53.0'
+   apiVersion='64.0'
 
    isHttps='false'
    sessionSecretKey='A_SECRET_STRING'
