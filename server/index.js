@@ -1,11 +1,16 @@
 // 3rd party dependencies
-const path = require('path'),
-  express = require('express'),
-  session = require('express-session'),
-  jsforce = require('jsforce');
+import path from 'path';
+import { fileURLToPath } from 'url';
+import express from 'express';
+import session from 'express-session';
+import jsforce from 'jsforce';
+import * as dotenv from 'dotenv';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Load and check config
-require('dotenv').config();
+dotenv.config();
 if (!(process.env.loginUrl && process.env.consumerKey && process.env.consumerSecret && process.env.callbackUrl && process.env.apiVersion && process.env.sessionSecretKey)) {
   console.error('Cannot start app: missing mandatory configuration. Check your .env file.');
   process.exit(-1);

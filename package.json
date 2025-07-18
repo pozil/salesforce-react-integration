@@ -5,6 +5,7 @@
   "description": "Sample integration project between Salesforce and a React application",
   "license": "see LICENSE file",
   "private": true,
+  "type": "module",
   "main": "server/server.js",
   "dependencies": {
     "@salesforce-ux/design-system": "^2.27.2",
@@ -21,11 +22,14 @@
     "@babel/preset-env": "^7.28.0",
     "@babel/preset-react": "^7.27.1",
     "babelify": "^10.0.0",
+    "eslint": "^9.31.0",
+    "eslint-plugin-react": "^7.37.5",
     "prettier": "^3.6.2",
     "uglify-js": "^3.19.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
     "prettier": "prettier --write \"**/*.{css,html,js,json,md}\"",
     "build": "rm -fr public/scripts && mkdir -p public/scripts && browserify -t [ babelify --presets [ @babel/preset-env @babel/preset-react ] ] client/*.js | uglifyjs > public/scripts/bundle.min.js",
     "start": "node server/index.js",
