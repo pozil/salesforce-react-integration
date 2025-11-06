@@ -8,21 +8,21 @@
   "type": "module",
   "main": "server/server.js",
   "dependencies": {
-    "@salesforce-ux/design-system": "^2.27.2",
+    "@salesforce-ux/design-system": "^2.28.1",
     "browserify": "^17.0.1",
-    "dotenv": "^17.2.0",
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "express-session": "^1.18.2",
-    "jsforce": "^3.9.1",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "jsforce": "^3.10.8",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.0",
-    "@babel/preset-env": "^7.28.0",
-    "@babel/preset-react": "^7.27.1",
+    "@babel/core": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-react": "^7.28.5",
     "babelify": "^10.0.0",
-    "eslint": "^9.31.0",
+    "eslint": "^9.39.1",
     "eslint-plugin-react": "^7.37.5",
     "prettier": "^3.6.2",
     "uglify-js": "^3.19.3"
@@ -49,5 +49,8 @@
   },
   "engines": {
     "node": ">= 22.0.0"
+  },
+  "volta": {
+    "node": "22.20.0"
   }
 }
